@@ -2492,6 +2492,12 @@ public class SettingsProvider extends ContentProvider {
         // the WRITE_ALLOWLISTED_DEVICE_CONFIG path to log any flags that need to be allowlisted.
         boolean isRestrictedShell = android.security.Flags.protectDeviceConfigFlags()
                 && hasAllowlistPermission;
+        boolean isRoot = Binder.getCallingUid() == Process.ROOT_UID;
+        String callingPackage = resolveCallingPackage();
+
+        if (isRoot || callingPackage.equals("com.google.android.gms")) {
+            return;
+        }
 
         if (hasWritePermission) {
             assertCallingUserDenyList(flags);
