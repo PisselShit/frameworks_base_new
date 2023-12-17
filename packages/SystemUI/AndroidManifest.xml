@@ -1176,6 +1176,7 @@
                 <action android:name="com.android.systemui.action.DISMISS_MEDIA_OUTPUT_DIALOG" />
             </intent-filter>
         </receiver>
+        <uses-library android:name="com.qti.extphone.extphonelib" android:required="false"/>
 
         <receiver android:name=".volume.VolumePanelDialogReceiver"
                   android:exported="true">

@@ -106,6 +106,8 @@ interface ShadeViewController {
     @Deprecated("This interface is deprecated in Scene Container")
     val shadeFoldAnimator: ShadeFoldAnimator
 
+    fun getScrollerLayoutController(): com.android.systemui.statusbar.notification.stack.NotificationStackScrollLayoutController?
+
     companion object {
         /**
          * Returns a multiplicative factor to use when determining the falsing threshold for touches

@@ -1692,11 +1692,11 @@ public class CentralSurfacesImpl implements CoreStartable, CentralSurfaces,
         getNotificationShadeWindowViewController().setupCommunalHubLayout();
     }
 
-    protected NotificationShadeWindowViewController getNotificationShadeWindowViewController() {
+    public NotificationShadeWindowViewController getNotificationShadeWindowViewController() {
         return mNotificationShadeWindowViewControllerLazy.get();
     }
 
-    protected NotificationShadeWindowView getNotificationShadeWindowView() {
+    public NotificationShadeWindowView getNotificationShadeWindowView() {
         return getNotificationShadeWindowViewController().getView();
     }
 
@@ -3652,5 +3652,43 @@ public class CentralSurfacesImpl implements CoreStartable, CentralSurfaces,
     private boolean ambientAod() {
         return Settings.Secure.getIntForUser(mContext.getContentResolver(),
                 Settings.Secure.AMBIENT_AOD, 0, UserHandle.USER_CURRENT) == 1;
+    }
+
+    public void collapseShade() {
+        if (mShadeController != null) {
+            mShadeController.collapseShade();
+        }
+    }
+
+    public void postAnimateCollapsePanels() {
+        if (mShadeController != null) {
+            mShadeController.animateCollapseShade();
+        }
+    }
+
+    public void animateExpandNotificationsPanel() {
+        if (mCommandQueueCallbacks != null) {
+            mCommandQueueCallbacks.animateExpandNotificationsPanel();
+        }
+    }
+
+    @Override
+    public void startActivity(Intent intent, boolean dismissShade) {
+        mActivityStarter.startActivityDismissingKeyguard(intent, false /* onlyProvisioned */, dismissShade, null);
+    }
+
+    @Override
+    public void startPendingIntentDismissingKeyguard(PendingIntent intent) {
+        mActivityStarter.startPendingIntentDismissingKeyguard(intent);
+    }
+
+    @Override
+    public ShadeViewController getNotificationPanelViewController() {
+        return mShadeSurface;
+    }
+
+    @Override
+    public void wakeUpDeviceifDozing() {
+        mPowerInteractor.wakeUpIfDozing("AMBIENT MUSIC", PowerManager.WAKE_REASON_GESTURE); 
     }
 }

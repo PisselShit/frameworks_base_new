@@ -4578,6 +4578,11 @@ public final class NotificationPanelViewController implements
         return mExpandedFraction <= 0.0f;
     }
 
+    @Override
+    public NotificationStackScrollLayoutController getScrollerLayoutController() {
+        return mNotificationStackScrollLayoutController;
+    }
+
     private void doUpdateStatusBarCustomHeader(Drawable drawable, boolean force) {
         if (drawable != null) {
             mQsHeaderImageView.setVisibility(View.VISIBLE);
